@@ -76,10 +76,10 @@ WSGI_APPLICATION = 'Effio_Ielts.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'your_db_name',      # Replace with your PostgreSQL database name
-        'USER': 'your_db_user',      # Replace with your PostgreSQL username
-        'PASSWORD': 'your_db_pass',  # Replace with your PostgreSQL password
-        'HOST': 'localhost',         # Or your PostgreSQL host
+        'NAME': 'effio_ielts_db',      # PostgreSQL database name
+        'USER': 'postgres',      # PostgreSQL username
+        'PASSWORD': 'Postgres@Minhtam2120',  # PostgreSQL password
+        'HOST': '127.0.0.1',         # Use IPv4 explicitly
         'PORT': '5432',              # Default PostgreSQL port
     }
 }
