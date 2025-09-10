@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Page</title>
+    <link rel="stylesheet" type="text/css" href="Styling/MainPage.css">
+</head>
+<body>
+    <header id="main_header"><a href="index.html">Quiz APP</a></header>
+    <hr>
+    <div>
+        <h2>Current quizes</h2>
+        <table>
+            <tr>
+                <th>Quiz Name</th>
+                <th>Description</th>
+                <th>Due Date</th>
+            </tr>
+            <tr>
+                <td>Sample Quiz 1</td>
+                <td>This is a sample description for Quiz 1.</td>
+                <td id="quiz1-date"></td>
+            </tr>
+            <tr>
+                <td>Sample Quiz 2</td>
+                <td>This is a sample description for Quiz 2.</td>
+            </tr>
+        </table>
+        <script>
+            document.getElementById('quiz1-date').textContent = new Date().toLocaleDateString();
+        </script>
+
+    </div>
+
+    <a href="index.html"><button>Go Back Home</button></a>
+</html>
