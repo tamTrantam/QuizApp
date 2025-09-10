@@ -1,0 +1,31 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'quizzes/css/MainPage.css' %}">
+</head>
+<body>
+    <header id="main_header"><a href="{% url 'quizzes:quiz_list' %}">Quizzes and Tests</a></header>
+    <hr>
+    <span>
+        <a href="{% url 'quizzes:quiz_list' %}"><button><img src="" alt="Quiz"></button></a>
+        <a href=""><button id="IELTS Tests"><img src="" alt="IELTS Tests"></button></a>
+        <script>
+            document.getElementById('IELTS Tests').onclick = function() {
+                alert("IELTS Tests clicked!");
+            };
+        </script>
+    </span>
+
+    <h1>All Quizzes</h1>
+    {% for quiz in quizzes %}  <!-- Use the data from view -->
+        <div>
+            <h3>{{ quiz.title }}</h3>
+            <p>{{ quiz.description }}</p>
+            <small>Due: {{ quiz.due_date }}</small>
+        </div>
+    {% endfor %}
+</html>
