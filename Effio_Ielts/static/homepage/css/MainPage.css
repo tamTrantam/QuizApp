@@ -1,0 +1,96 @@
+.sidebar{
+            position: fixed;
+            text-align: center;
+            font-size: 150%;
+            color: black;
+            background-color: #F2DDDC;
+            font-family: 'Josefin Sans', sans-serif, monospace;
+            margin-bottom: 10px;
+            width: 250; /* Fixed width instead of fit-content */
+            height: 100%;
+            border-radius: 15px;
+            
+        }
+#home_emblem{
+            position: relative;
+            background: #e9b50b;
+            color: #000;
+            font-family: 'comic sans ms', cursive, sans-serif;
+            font-weight: bold;
+            padding: 10px;
+            font-size: 30px;
+            transform: translateZ(50px);
+            z-index: 4; /* Ensure it stays above other elements */
+            display: flex;
+            align-items: center; /* Center items vertically */
+            justify-content: center; /* Center items horizontally */
+            border: 2px solid #000;
+            width: 250px;
+            text-align: center;
+            flex-wrap: wrap;
+            border-radius: 0px 18px;
+            margin: 0 auto; /* Center horizontally with auto margins */
+            gap: 5px; /* Space between image and text */
+            grid-column: 1;
+        }
+#home_emblem a{
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+    
+        }
+#home_emblem img{
+            height: 40px;
+            width: 40px;
+            margin-right: 10px;
+            grid-column: 0;
+}
+#home_emblem svg{
+            height: 20px;
+            width: 20px;
+            margin-right: 10px;
+            grid-column: 0;
+}
+#home_emblem text{
+            background: #f4e7fb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            grid-column: 1;
+        }
+.sidebar  a {
+            display: block;
+            color: black;
+            text-decoration: none;
+            padding: 10px;
+        }
+.sidebar ul {
+            list-style-type: none;
+            padding: 10px;
+        }
+.sidebar ul li a {
+            display: block;
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+.sidebar ul li a:hover {
+            background-color: #f4e7fb;
+            border-radius: 10px;
+        }
+
+body {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    grid-column: 2;
+    padding: 20px;
+    margin-left: 50px; /* Add some space from the sidebar */
+}
+
+

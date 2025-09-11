@@ -20,5 +20,5 @@ from django.urls import path, include  # Add include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('quizzes/', include('Quizzes.urls')),  # Connect to your app
-    path('', include('Quizzes.urls')),          # Optional: make quizzes homepage
+    path('', include('Homepage.urls')),         
 ]
