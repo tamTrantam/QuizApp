@@ -23,7 +23,7 @@
 <div class="section">
     <div class="cards">
         {% for quiz in quizzes %}
-            <div class="quiz-card-interactive quiz-card-with-bg" data-bg-color="{{ quiz.background_color }}">>>
+            <div class="quiz-card-interactive quiz-card-with-bg" data-bg-color="{{ quiz.background_color }}">
                 <div class="quiz-image">
                     <img src="{{ quiz.get_cover_image_url }}" alt="{{ quiz.title }}" loading="lazy">
                 </div>

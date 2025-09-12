@@ -102,7 +102,7 @@ DATABASE_URL = config('DATABASE_URL', default='')
 if DATABASE_URL:
     # Use DATABASE_URL if provided (Render deployment)
     DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL)
+        'default': dj_database_url.parse(DATABASE_URL) # type: ignore
     }
 else:
     # Use individual database settings (local development)
