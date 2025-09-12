@@ -91,12 +91,22 @@
     padding: var(--spacing-xl);
     box-shadow: var(--shadow-lg);
     margin-bottom: var(--spacing-lg);
+    display: none;
+}
+
+.question-card[data-visible="true"] {
+    display: block;
 }
 
 .question-card h3 {
     margin: 0 0 var(--spacing-md) 0;
     color: var(--primary);
     font-size: 1.3rem;
+}
+
+/* Submit Button Visibility */
+#submitBtn[data-hidden="true"] {
+    display: none;
 }
 
 .question-content p {

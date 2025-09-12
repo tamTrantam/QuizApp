@@ -25,7 +25,7 @@
         {% csrf_token %}
         
         {% for question in questions %}
-            <div class="question-card" data-question="{{ forloop.counter }}" style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+            <div class="question-card" data-question="{{ forloop.counter }}" {% if forloop.first %}data-visible="true"{% else %}data-visible="false"{% endif %}>>
                 
                 <!-- Question Image -->
                 {% if question.image %}
@@ -87,7 +87,7 @@
                             Next ➡️
                         </button>
                     {% else %}
-                        <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">
+                        <button type="submit" class="btn btn-success" id="submitBtn" data-hidden="true">>
                             ✅ Submit Quiz
                         </button>
                     {% endif %}

@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}User Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'quizzes/css/dashboard.css' %}">
+{% endblock %}nds 'base.html' %}
+{% load static %}
+
 {% block title %}My Quiz Dashboard{% endblock %}
 
 {% block extra_css %}
@@ -210,25 +217,14 @@
         .attempt-header {
             flex-direction: column;
             align-items: flex-start;
-            gap: 10px;
-        }
-        
-        .attempt-details {
-            flex-direction: column;
-            gap: 5px;
-        }
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="dashboard-container">
     <!-- Dashboard Header -->
     <div class="dashboard-header">
         <h1>📊 My Quiz Dashboard</h1>
         <p>Track your progress and performance across all quizzes</p>
-        <div style="margin-top: 20px;">
-            <span style="font-size: 1.2rem;">Welcome back, <strong>{{ user.username }}</strong>!</span>
+        <div class="dashboard-welcome">
+            <span class="welcome-text">Welcome back, <strong>{{ user.username }}</strong>!</span>
         </div>
     </div>
     
@@ -271,11 +267,11 @@
     <div class="performance-comparison">
         <div class="comparison-card best-performance">
             <h3>🏆 Best Performance</h3>
-            <div style="font-size: 2rem; font-weight: bold; color: #4CAF50; margin: 15px 0;">
+            <div class="success-rate">
                 {{ best_attempt.percentage_score|floatformat:1 }}%
             </div>
             <div><strong>{{ best_attempt.quiz.title }}</strong></div>
-            <div style="color: #666; margin-top: 10px;">
+            <div class="stat-description">
                 {{ best_attempt.completed_at|date:"M d, Y" }}
             </div>
         </div>
@@ -283,11 +279,11 @@
         {% if best_attempt != worst_attempt %}
         <div class="comparison-card worst-performance">
             <h3>💪 Room for Improvement</h3>
-            <div style="font-size: 2rem; font-weight: bold; color: #f44336; margin: 15px 0;">
+            <div class="failure-rate">
                 {{ worst_attempt.percentage_score|floatformat:1 }}%
             </div>
             <div><strong>{{ worst_attempt.quiz.title }}</strong></div>
-            <div style="color: #666; margin-top: 10px;">
+            <div class="stat-description">
                 {{ worst_attempt.completed_at|date:"M d, Y" }}
             </div>
         </div>

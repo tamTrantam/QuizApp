@@ -4,7 +4,8 @@
 {% block title %}Quiz Results - {{ quiz.title }}{% endblock %}
 
 {% block extra_css %}
-<style>
+<link rel="stylesheet" href="{% static 'quizzes/css/results.css' %}">
+{% endblock %}
     .results-container {
         max-width: 1000px;
         margin: 0 auto;
@@ -236,18 +237,6 @@
         
         .action-buttons {
             flex-direction: column;
-            align-items: center;
-        }
-        
-        .btn {
-            width: 100%;
-            max-width: 300px;
-            justify-content: center;
-        }
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="results-container">
     <!-- Main Score Card -->
@@ -257,8 +246,8 @@
         
         <div class="score-circle">
             <div class="score-inner">
-                <div style="font-size: 2rem; font-weight: bold;">{{ stats.percentage }}%</div>
-                <div style="font-size: 0.9rem;">{{ stats.correct_answers }}/{{ stats.total_questions }}</div>
+                <div class="score-percentage">{{ stats.percentage }}%</div>
+                <div class="score-fraction">{{ stats.correct_answers }}/{{ stats.total_questions }}</div>
             </div>
         </div>
         
@@ -324,7 +313,7 @@
             </div>
             
             {% if answer.question.reading_passage %}
-            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-style: italic;">
+            <div class="question-explanation">
                 {{ answer.question.reading_passage|truncatewords:50 }}
             </div>
             {% endif %}
@@ -343,9 +332,9 @@
                     <span>{{ choice.text }}</span>
                     
                     {% if choice.is_correct %}
-                        <span style="margin-left: auto; font-weight: bold;">Correct Answer</span>
+                        <span class="correct-answer">Correct Answer</span>
                     {% elif choice == answer.selected_choice %}
-                        <span style="margin-left: auto; font-weight: bold;">Your Answer</span>
+                        <span class="your-answer">Your Answer</span>
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -363,16 +352,16 @@
         <div class="attempt-item {% if attempt_item == attempt %}current-attempt{% endif %}">
             <div>
                 <strong>Attempt {{ forloop.counter }}</strong>
-                <div style="color: #666; font-size: 0.9rem;">
+                <div class="time-taken">
                     {{ attempt_item.completed_at|date:"M d, Y H:i" }}
                 </div>
             </div>
             
-            <div style="text-align: right;">
-                <div style="font-size: 1.2rem; font-weight: bold; color: #667eea;">
+            <div class="final-score">
+                <div class="final-score-value">
                     {{ attempt_item.percentage_score|floatformat:1 }}%
                 </div>
-                <div style="color: #666; font-size: 0.9rem;">
+                <div class="final-score-label">
                     {{ attempt_item.score }}/{{ attempt_item.total_questions }}
                 </div>
             </div>
