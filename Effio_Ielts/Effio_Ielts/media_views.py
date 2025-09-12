@@ -4,12 +4,12 @@ Media file serving utilities for production deployment.
 import os
 from django.http import HttpResponse, Http404
 from django.conf import settings
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_http_methods
 from django.views.decorators.cache import cache_control
 import mimetypes
 
 
-@require_GET
+@require_http_methods(["GET", "HEAD"])
 @cache_control(max_age=3600)  # Cache for 1 hour
 def serve_media(request, path):
     """
@@ -39,8 +39,12 @@ def serve_media(request, path):
     
     # Read and serve file
     try:
-        with open(file_path, 'rb') as f:
-            response = HttpResponse(f.read(), content_type=content_type)
+        # For HEAD requests, don't read the file content
+        if request.method == 'HEAD':
+            response = HttpResponse(content_type=content_type)
+        else:
+            with open(file_path, 'rb') as f:
+                response = HttpResponse(f.read(), content_type=content_type)
             
         # Add appropriate headers
         response['Content-Length'] = os.path.getsize(file_path)
