@@ -14,6 +14,7 @@ class Quiz(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+        verbose_name_plural = "Quizzes"
     
     def get_cover_image_url(self):
         """Return cover image URL with fallback for missing files."""
@@ -30,7 +31,7 @@ class Quiz(models.Model):
     def has_valid_cover_image(self):
         """Check if quiz has a valid, accessible cover image."""
         return self.cover_image and hasattr(self.cover_image, 'url')
-        verbose_name_plural = "Quizzes"
+        ordering = ['-created_at']
     
     def __str__(self):
         return self.title
