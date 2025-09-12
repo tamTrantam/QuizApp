@@ -1,12 +1,43 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.conf import settings
 import json
+
+# Conditional import for Cloudinary
+try:
+    from cloudinary.models import CloudinaryField
+    CLOUDINARY_AVAILABLE = True
+except ImportError:
+    CLOUDINARY_AVAILABLE = False
 
 class Quiz(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    cover_image = models.ImageField(upload_to='quiz_covers/', blank=True, null=True)  # New field
+    
+    # Dynamic field selection based on Cloudinary availability and configuration
+    if CLOUDINARY_AVAILABLE and getattr(settings, 'USE_CLOUDINARY', False):
+        cover_image = CloudinaryField(
+            'image',
+            folder='quiz_app/quiz_covers',
+            null=True,
+            blank=True,
+            transformation={
+                'width': 800,
+                'height': 400,
+                'crop': 'fill',
+                'quality': 'auto',
+                'format': 'auto'
+            },
+            help_text="Upload a cover image for this quiz (recommended size: 800x400px)"
+        )
+    else:
+        cover_image = models.ImageField(
+            upload_to='quiz_covers/', 
+            blank=True, 
+            null=True,
+            help_text="Upload a cover image for this quiz (recommended size: 800x400px)"
+        )
     background_color = models.CharField(max_length=7, default='#ffffff')  # Hex color
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateTimeField()
@@ -20,17 +51,36 @@ class Quiz(models.Model):
         """Return cover image URL with fallback for missing files."""
         if self.cover_image:
             try:
-                # Check if file exists, return URL if it does
-                self.cover_image.url
-                return self.cover_image.url
-            except:
-                # If file doesn't exist, return default image
+                # For Cloudinary fields, the URL is always available
+                if hasattr(self.cover_image, 'url'):
+                    return self.cover_image.url
+                # For regular ImageField, check if file exists
+                elif hasattr(self.cover_image, 'name') and self.cover_image.name:
+                    return self.cover_image.url
+                else:
+                    # If file doesn't exist, return default image
+                    return '/static/homepage/images/default-quiz-cover.svg'
+            except (ValueError, AttributeError):
+                # If any error occurs, return default image
                 return '/static/homepage/images/default-quiz-cover.svg'
         return '/static/homepage/images/default-quiz-cover.svg'
     
     def has_valid_cover_image(self):
         """Check if quiz has a valid, accessible cover image."""
-        return self.cover_image and hasattr(self.cover_image, 'url')
+        if not self.cover_image:
+            return False
+        
+        try:
+            # For Cloudinary fields, always return True if field has value
+            if hasattr(self.cover_image, 'public_id'):
+                return bool(self.cover_image.public_id)
+            # For regular ImageField, check if it has a name/path
+            elif hasattr(self.cover_image, 'name'):
+                return bool(self.cover_image.name)
+        except (ValueError, AttributeError):
+            pass
+        
+        return False
         ordering = ['-created_at']
     
     def __str__(self):

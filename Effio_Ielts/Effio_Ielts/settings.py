@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 from decouple import config
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',  # Required for allauth
     
     # Third party apps
+    'cloudinary_storage',  # Add this
+    'cloudinary',          # Add this
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -156,14 +161,47 @@ STATIC_ROOT = config('STATIC_ROOT', default=os.path.join(BASE_DIR, 'staticfiles'
 # WhiteNoise configuration for serving static files in production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files (uploads) - Enhanced configuration for production
-MEDIA_URL = config('MEDIA_URL', default='/media/')
-MEDIA_ROOT = config('MEDIA_ROOT', default=os.path.join(BASE_DIR, 'media'))
+# ========================================
+# CLOUDINARY CONFIGURATION
+# ========================================
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
-# For production: Use whitenoise to serve media files as well (not recommended for large files)
-WHITENOISE_USE_FINDERS = True
-WHITENOISE_AUTOREFRESH = True
-WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'zip', 'gz', 'tgz', 'bz2', 'tbz', 'xz', 'br']
+# Cloudinary settings
+USE_CLOUDINARY = config('USE_CLOUDINARY', default=False, cast=bool)
+
+if USE_CLOUDINARY:
+    # Cloudinary configuration
+    cloudinary.config(
+        cloud_name=config('CLOUDINARY_CLOUD_NAME'),
+        api_key=config('CLOUDINARY_API_KEY'),
+        api_secret=config('CLOUDINARY_API_SECRET'),
+        secure=True
+    )
+    
+    # Use Cloudinary for media storage
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    
+    # Cloudinary storage settings
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': config('CLOUDINARY_API_KEY'),
+        'API_SECRET': config('CLOUDINARY_API_SECRET'),
+        'FOLDER': 'quiz_app',  # Base folder for all uploads
+    }
+    
+    # Media URL for Cloudinary
+    MEDIA_URL = '/media/'
+else:
+    # Local media files (fallback)
+    MEDIA_URL = config('MEDIA_URL', default='/media/')
+    MEDIA_ROOT = config('MEDIA_ROOT', default=os.path.join(BASE_DIR, 'media'))
+    
+    # For production: Use whitenoise to serve media files as well (not recommended for large files)
+    WHITENOISE_USE_FINDERS = True
+    WHITENOISE_AUTOREFRESH = True
+    WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'zip', 'gz', 'tgz', 'bz2', 'tbz', 'xz', 'br']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -212,6 +250,30 @@ SECURE_HSTS_PRELOAD = config('SECURE_HSTS_PRELOAD', default=False, cast=bool)
 # CSRF Settings
 CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=False, cast=bool)
 SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=False, cast=bool)
+
+# Cloudinary settings
+CLOUDINARY_CLOUD_NAME = config('CLOUDINARY_CLOUD_NAME', default='your_cloud_name')
+CLOUDINARY_API_KEY = config('CLOUDINARY_API_KEY', default='your_api_key')
+CLOUDINARY_API_SECRET = config('CLOUDINARY_API_SECRET', default='your_api_secret')
+USE_CLOUDINARY = config('USE_CLOUDINARY', default=True, cast=bool)
+
+if USE_CLOUDINARY:
+    cloudinary.config(
+        cloud_name=config('CLOUDINARY_CLOUD_NAME'),
+        api_key=config('CLOUDINARY_API_KEY'),
+        api_secret=config('CLOUDINARY_API_SECRET'),
+        secure=True
+    )
+    
+    # Use Cloudinary for media files
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': config('CLOUDINARY_API_KEY'),
+        'API_SECRET': config('CLOUDINARY_API_SECRET'),
+    }
+    
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    MEDIA_URL = '/media/'
 
 # ⭐ TEMPORARY: Add logging to see what's happening
 LOGGING = {
