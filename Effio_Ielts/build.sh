@@ -3,11 +3,13 @@
 
 set -o errexit  # exit on error
 
-# Install dependencies
+echo "==> Installing dependencies..."
 pip install -r requirements.txt
 
-# Collect static files
-python manage.py collectstatic --no-input
+echo "==> Collecting static files..."
+python manage.py collectstatic --no-input --verbosity=2
 
-# Run migrations
+echo "==> Running migrations..."
 python manage.py migrate
+
+echo "==> Build completed successfully!"
