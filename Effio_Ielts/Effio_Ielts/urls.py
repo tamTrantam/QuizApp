@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Homepage.urls')),
     path('quizzes/', include('Quizzes.urls')),
+    path('accounts/', include('allauth.urls')),  # Add authentication URLs
 ]
 
 # Serve media files in development

@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - EffioDominion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/main.css' %}">
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>See You Soon! 👋</h2>
+            <p>You have been successfully logged out</p>
+        </div>
+        
+        <div class="logout-content">
+            <div class="logout-icon">
+                <span style="font-size: 4rem;">🎯</span>
+            </div>
+            
+            <div class="logout-message">
+                <h3>Thank you for using EffioDominion!</h3>
+                <p>Your IELTS learning journey continues when you return.</p>
+                
+                <div class="logout-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">📚</span>
+                        <span class="stat-text">Keep learning daily</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🏆</span>
+                        <span class="stat-text">Your progress is saved</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">💡</span>
+                        <span class="stat-text">Come back anytime</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logout-actions">
+            <a href="{% url 'homepage:home' %}" class="btn btn-primary btn-full">
+                🏠 Return to Homepage
+            </a>
+            
+            <div class="secondary-actions">
+                <a href="{% url 'account_login' %}" class="btn btn-outline">
+                    🔑 Login Again
+                </a>
+                <a href="{% url 'account_signup' %}" class="btn btn-secondary">
+                    ➕ Create New Account
+                </a>
+            </div>
+        </div>
+        
+        <div class="logout-footer">
+            <p>💡 <strong>Pro Tip:</strong> Bookmark this site for quick access to your IELTS practice!</p>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Logout-specific styles */
+.logout-content {
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+}
+
+.logout-icon {
+    margin-bottom: var(--spacing-lg);
+}
+
+.logout-message h3 {
+    color: var(--text);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.logout-message p {
+    color: var(--text-light);
+    margin-bottom: var(--spacing-xl);
+    font-size: 1.1rem;
+}
+
+.logout-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-lg);
+    background: #f8f9fa;
+    border-radius: var(--border-radius-md);
+    border-left: 4px solid var(--primary);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    justify-content: flex-start;
+}
+
+.stat-icon {
+    font-size: 1.2rem;
+    width: 30px;
+}
+
+.stat-text {
+    color: var(--text);
+    font-weight: 500;
+    flex: 1;
+    text-align: left;
+}
+
+.logout-actions {
+    margin-top: var(--spacing-xl);
+}
+
+.secondary-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    justify-content: space-between;
+}
+
+.secondary-actions .btn {
+    flex: 1;
+    font-size: 14px;
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.logout-footer {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.logout-footer p {
+    color: var(--text-light);
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .secondary-actions {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .logout-stats {
+        padding: var(--spacing-md);
+    }
+    
+    .stat-item {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .stat-text {
+        text-align: center;
+    }
+}
+
+/* Animation for logout icon */
+.logout-icon span {
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+</style>
+
+</body>
+</html>

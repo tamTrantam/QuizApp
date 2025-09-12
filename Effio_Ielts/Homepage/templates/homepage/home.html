@@ -10,10 +10,23 @@
 </head>
 <body>
 
-{% comment %} <header>
-    <h1>IELTS E-learning Platform</h1>
-    <p>Fun, Interactive & Youth-Centered IELTS Learning</p>
-</header> {% endcomment %}
+<!-- Top Navigation Bar with Login/Logout -->
+<div class="top-nav">
+    <div class="nav-container">
+        <div class="logo">
+            <h3>EffioDominion</h3>
+        </div>
+        <div class="nav-auth">
+            {% if user.is_authenticated %}
+                <span class="welcome-text">Welcome, {{ user.first_name|default:user.username }}!</span>
+                <a href="/accounts/logout/" class="btn btn-outline">Logout</a>
+            {% else %}
+                <a href="/accounts/login/" class="btn btn-outline">Login</a>
+                <a href="/accounts/signup/" class="btn btn-primary">Sign Up</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 <nav>
     <a href="#courses">Courses</a>
@@ -26,7 +39,11 @@
     <div class="hero-content">
         <h2>Master IELTS with Interactive Learning</h2>
         <p>Join thousands of students achieving their dream scores with our fun, engaging, and effective learning platform</p>
-        <a href="{% url 'quizzes:quiz_list' %}" class="btn btn-primary">Start Learning Today</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'quizzes:quiz_list' %}" class="btn btn-primary">Continue Learning</a>
+        {% else %}
+            <a href="/accounts/signup/" class="btn btn-primary">Start Learning Today</a>
+        {% endif %}
     </div>
 </div>
 
@@ -56,9 +73,18 @@
     <div class="quiz">
         <h2>Quizzes</h2>
         <p>Take our interactive quizzes and track your progress</p>
-        <a href="{% url 'quizzes:quiz_list' %}">
-            <button class="btn btn-secondary">Start Quiz Now</button>
-        </a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'quizzes:quiz_list' %}">
+                <button class="btn btn-secondary">Start Quiz Now</button>
+            </a>
+        {% else %}
+            <div class="auth-prompt">
+                <p><strong>Please login to access quizzes</strong></p>
+                <a href="/accounts/login/">
+                    <button class="btn btn-primary">Login to Start</button>
+                </a>
+            </div>
+        {% endif %}
     </div>
 </div>
 
@@ -85,7 +111,13 @@
     <div class="quiz">
         <h3>Full IELTS Mock Test</h3>
         <p>Experience the real IELTS exam environment with timed sections</p>
-        <button class="btn btn-secondary">Take Mock Test</button>
+        {% if user.is_authenticated %}
+            <button class="btn btn-secondary">Take Mock Test</button>
+        {% else %}
+            <a href="/accounts/login/">
+                <button class="btn btn-primary">Login to Take Test</button>
+            </a>
+        {% endif %}
     </div>
 </div>
 

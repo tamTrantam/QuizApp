@@ -1,19 +1,6 @@
 /* ===========================================
    EFFIO IELTS E-LEARNING PLATFORM
    Modular CSS Architecture
-   
-   Components:
-   - Variables: Theme colors, spacing, transitions
-   - Base: Reset, layout utilities, grid system
-   - Header: Site header and navigation
-   - Buttons: All button variations and states
-   - Cards: Card components and layouts
-   - Quiz: Quiz-taking interface components
-   - Footer: Site footer
-   - Responsive: Mobile-first responsive design
-   
-   Author: EffioDominion Team
-   Version: 2.0
    =========================================== */
 
 /* Import all CSS modules in dependency order */
@@ -24,11 +11,11 @@
 @import url('modules/cards.css');
 @import url('modules/quiz.css');
 @import url('modules/footer.css');
+@import url('modules/auth.css');
 @import url('modules/responsive.css');
 
 /* ===========================================
    COMPONENT-SPECIFIC OVERRIDES
-   Any special cases or unique combinations
    =========================================== */
 
 /* Quiz card completed state */
@@ -60,117 +47,6 @@
     background: #fff3e0;
     color: #f57c00;
     border: 1px solid var(--warning);
-}
-
-/* Authentication forms */
-.auth-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: var(--spacing-xl);
-    background: var(--card-bg);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-md);
-}
-
-.auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-lg);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-}
-
-.form-group label {
-    font-weight: bold;
-    color: var(--text);
-}
-
-.form-group input {
-    padding: var(--spacing-sm);
-    border: 2px solid #ddd;
-    border-radius: var(--border-radius-sm);
-    font-size: 16px;
-    transition: var(--transition-normal);
-}
-
-.form-group input:focus {
-    border-color: var(--primary);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.1);
-}
-
-.auth-link {
-    text-align: center;
-    margin-top: var(--spacing-lg);
-}
-
-.auth-link a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.auth-link a:hover {
-    text-decoration: underline;
-}
-
-.error-messages {
-    background: #ffebee;
-    color: #c62828;
-    padding: var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-    border-left: 4px solid #c62828;
-    font-size: 14px;
-}
-
-/* Social authentication */
-.social-auth {
-    margin-bottom: var(--spacing-lg);
-}
-
-.btn-google {
-    display: block;
-    width: 100%;
-    padding: var(--spacing-md);
-    background: #4285f4;
-    color: var(--text-white);
-    text-decoration: none;
-    text-align: center;
-    border-radius: var(--border-radius-sm);
-    font-size: 16px;
-    transition: var(--transition-normal);
-}
-
-.btn-google:hover {
-    background: #357ae8;
-    transform: translateY(-1px);
-}
-
-.divider {
-    text-align: center;
-    margin: var(--spacing-lg) 0;
-    position: relative;
-}
-
-.divider::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: #ddd;
-}
-
-.divider span {
-    background: var(--card-bg);
-    padding: 0 var(--spacing-md);
-    color: var(--text-light);
-    font-weight: 600;
 }
 
 /* Loading states */
