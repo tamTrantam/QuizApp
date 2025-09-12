@@ -168,26 +168,20 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-# Cloudinary settings
+# Cloudinary settings using CLOUDINARY_URL (simpler approach)
+CLOUDINARY_URL = config('CLOUDINARY_URL', default='')
 USE_CLOUDINARY = config('USE_CLOUDINARY', default=False, cast=bool)
 
-if USE_CLOUDINARY:
-    # Cloudinary configuration
-    cloudinary.config(
-        cloud_name=config('CLOUDINARY_CLOUD_NAME'),
-        api_key=config('CLOUDINARY_API_KEY'),
-        api_secret=config('CLOUDINARY_API_SECRET'),
-        secure=True
-    )
+if USE_CLOUDINARY and CLOUDINARY_URL:
+    # Cloudinary will auto-configure from CLOUDINARY_URL
+    import os
+    os.environ['CLOUDINARY_URL'] = str(CLOUDINARY_URL)
     
     # Use Cloudinary for media storage
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     
     # Cloudinary storage settings
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
-        'API_KEY': config('CLOUDINARY_API_KEY'),
-        'API_SECRET': config('CLOUDINARY_API_SECRET'),
         'FOLDER': 'quiz_app',  # Base folder for all uploads
     }
     
