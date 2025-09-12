@@ -1,0 +1,87 @@
+/* ===========================================
+   HEADER & NAVIGATION COMPONENTS
+   Site header, navigation menu, branding
+   =========================================== */
+
+header {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--text-white);
+    padding: var(--spacing-xl);
+    text-align: center;
+}
+
+header h1 {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+header p {
+    margin: 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Navigation Menu */
+nav {
+    background: var(--card-bg);
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--secondary);
+    font-weight: 600;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    transition: var(--transition-normal);
+    position: relative;
+}
+
+nav a:hover {
+    color: var(--primary);
+    background: rgba(255, 111, 97, 0.1);
+}
+
+nav a.active {
+    color: var(--primary);
+    background: rgba(255, 111, 97, 0.15);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: var(--transition-normal);
+}
+
+nav a:hover::after,
+nav a.active::after {
+    width: 80%;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-lg);
+    }
+    
+    nav a {
+        text-align: center;
+        padding: var(--spacing-md);
+    }
+}

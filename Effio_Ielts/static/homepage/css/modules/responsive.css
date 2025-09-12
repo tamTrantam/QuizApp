@@ -1,0 +1,108 @@
+/* ===========================================
+   RESPONSIVE DESIGN & MEDIA QUERIES
+   Mobile-first responsive breakpoints
+   =========================================== */
+
+/* Mobile First Approach */
+/* Base styles above are mobile-first */
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-xl);
+    }
+    
+    header h1 {
+        font-size: 3rem;
+    }
+    
+    .hero h2 {
+        font-size: 3rem;
+    }
+    
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .quiz-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+    .section {
+        padding: 80px var(--spacing-lg);
+    }
+    
+    .cards {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .quiz-container {
+        padding: var(--spacing-xl);
+    }
+    
+    .choice-label:hover {
+        transform: translateX(10px);
+    }
+}
+
+/* Large Desktop Styles */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .section {
+        max-width: 1300px;
+    }
+    
+    .hero {
+        padding: 150px var(--spacing-lg);
+    }
+    
+    .hero h2 {
+        font-size: 3.5rem;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .quiz-image img,
+    .choice-image,
+    .question-image img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .quiz-container {
+        box-shadow: none;
+        padding: 0;
+    }
+    
+    .question-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+    
+    .question-navigation,
+    .quiz-header .progress-bar,
+    nav,
+    footer {
+        display: none;
+    }
+    
+    .choice-label {
+        border: 1px solid #ccc;
+    }
+    
+    .choice-label:hover {
+        transform: none;
+    }
+}

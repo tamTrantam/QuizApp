@@ -1,16 +1,78 @@
-{% extends 'homepage/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes - EffioDominion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/MainPage.css' %}">
+</head>
+<body>
 
-{% block title %}Quizzes - EffioDominion{% endblock %}
+<header>
+    <h1>🎯 Interactive IELTS Quizzes</h1>
+    <p>Visual, engaging, and fun learning experience</p>
+</header>
 
-{% block content %}
-    <h1>All Quizzes</h1>
-    
-    {% for quiz in quizzes %}
-        <div class="quiz-card">
-            <h3>{{ quiz.title }}</h3>
-            <p>{{ quiz.description }}</p>
-            <small>Due: {{ quiz.due_date }}</small>
-            <a href="{% url 'quizzes:quiz_detail' quiz.id %}">View Details</a>
-        </div>
-    {% endfor %}
-{% endblock %}
+<nav>
+    <a href="{% url 'homepage:home' %}">🏠 Home</a>
+    <a href="{% url 'quizzes:quiz_list' %}">📚 All Quizzes</a>
+</nav>
+
+<div class="section">
+    <div class="cards">
+        {% for quiz in quizzes %}
+            <div class="quiz-card-interactive" style="background-color: {{ quiz.background_color }};">
+                {% if quiz.cover_image %}
+                    <div class="quiz-image">
+                        <img src="{{ quiz.cover_image.url }}" alt="{{ quiz.title }}" loading="lazy">
+                    </div>
+                {% else %}
+                    <div class="quiz-icon">
+                        <span class="quiz-emoji">📝</span>
+                    </div>
+                {% endif %}
+                
+                <div class="quiz-content">
+                    <h3>{{ quiz.title }}</h3>
+                    <p>{{ quiz.description|truncatewords:20 }}</p>
+                    
+                    <div class="quiz-meta">
+                        <span class="quiz-questions">
+                            📊 {{ quiz.questions.count }} Questions
+                        </span>
+                        <span class="quiz-due">
+                            ⏰ Due: {{ quiz.due_date|date:"M d" }}
+                        </span>
+                    </div>
+                    
+                    <div class="quiz-actions">
+                        <a href="{% url 'quizzes:quiz_detail' quiz.id %}" class="btn btn-outline">
+                            👁️ Preview
+                        </a>
+                        <a href="{% url 'quizzes:take_quiz' quiz.id %}" class="btn btn-primary">
+                            🚀 Start Quiz
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-state">
+                <div class="empty-icon">📚</div>
+                <h3>No Quizzes Available Yet</h3>
+                <p>Check back soon for exciting new quizzes!</p>
+                <a href="{% url 'homepage:home' %}" class="btn btn-primary">
+                    🏠 Back to Home
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 EffioDominion - Making IELTS Learning Fun & Interactive 🎨</p>
+</footer>
+
+</body>
+</html>

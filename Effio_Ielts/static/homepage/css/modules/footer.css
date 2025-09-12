@@ -1,0 +1,41 @@
+/* ===========================================
+   FOOTER COMPONENT
+   Site footer styling
+   =========================================== */
+
+footer {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--text-white);
+    text-align: center;
+    padding: var(--spacing-xl);
+    margin-top: var(--spacing-xxl);
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+footer a {
+    color: var(--text-white);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-normal);
+}
+
+footer a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+/* Footer responsive */
+@media (max-width: 768px) {
+    footer {
+        padding: var(--spacing-lg);
+    }
+    
+    footer p {
+        font-size: 0.9rem;
+    }
+}

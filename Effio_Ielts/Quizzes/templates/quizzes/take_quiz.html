@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ quiz.title }} - EffioDominion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/MainPage.css' %}">
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>{{ quiz.title }}</h1>
+        <div class="quiz-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <span id="progressText">Question 1 of {{ questions.count }}</span>
+        </div>
+    </div>
+
+    <form method="post" id="quizForm">
+        {% csrf_token %}
+        
+        {% for question in questions %}
+            <div class="question-card" data-question="{{ forloop.counter }}" style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+                
+                <!-- Question Image -->
+                {% if question.image %}
+                    <div class="question-image">
+                        <img src="{{ question.image.url }}" alt="Question {{ forloop.counter }}" loading="lazy">
+                    </div>
+                {% endif %}
+                
+                <!-- Audio for listening questions -->
+                {% if question.audio_file %}
+                    <div class="question-audio">
+                        <audio controls>
+                            <source src="{{ question.audio_file.url }}" type="audio/mpeg">
+                            Your browser does not support audio playback.
+                        </audio>
+                        <button type="button" class="replay-btn" onclick="replayAudio(this)">🔄 Replay</button>
+                    </div>
+                {% endif %}
+                
+                <!-- Reading Passage -->
+                {% if question.reading_passage %}
+                    <div class="reading-passage">
+                        <h4>📖 Reading Passage:</h4>
+                        <div class="passage-content">
+                            {{ question.reading_passage|linebreaks }}
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <div class="question-content">
+                    <h3>Question {{ forloop.counter }}</h3>
+                    <p>{{ question.text }}</p>
+                    
+                    <div class="choices-container">
+                        {% for choice in question.shuffled_choices %}
+                            <label class="choice-label">
+                                <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}" required>
+                                <div class="choice-content">
+                                    {% if choice.image %}
+                                        <img src="{{ choice.image.url }}" alt="Choice {{ forloop.counter }}" class="choice-image">
+                                    {% endif %}
+                                    <span class="choice-text">{{ choice.text }}</span>
+                                </div>
+                                <span class="choice-indicator"></span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="question-navigation">
+                    {% if not forloop.first %}
+                        <button type="button" class="btn btn-secondary" onclick="previousQuestion()">
+                            ⬅️ Previous
+                        </button>
+                    {% endif %}
+                    
+                    {% if not forloop.last %}
+                        <button type="button" class="btn btn-primary" onclick="nextQuestion()">
+                            Next ➡️
+                        </button>
+                    {% else %}
+                        <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">
+                            ✅ Submit Quiz
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </form>
+</div>
+
+<script>
+let currentQuestion = 1;
+const totalQuestions = {{ questions.count }};
+
+function updateProgress() {
+    const progress = (currentQuestion / totalQuestions) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+    document.getElementById('progressText').textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+}
+
+function showQuestion(questionNumber) {
+    // Hide all questions
+    document.querySelectorAll('.question-card').forEach(card => {
+        card.style.display = 'none';
+    });
+    
+    // Show current question
+    document.querySelector(`[data-question="${questionNumber}"]`).style.display = 'block';
+    updateProgress();
+    
+    // Show submit button on last question
+    if (questionNumber === totalQuestions) {
+        document.getElementById('submitBtn').style.display = 'block';
+    }
+}
+
+function nextQuestion() {
+    if (currentQuestion < totalQuestions) {
+        currentQuestion++;
+        showQuestion(currentQuestion);
+    }
+}
+
+function previousQuestion() {
+    if (currentQuestion > 1) {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+    }
+}
+
+function replayAudio(button) {
+    const audio = button.parentElement.querySelector('audio');
+    audio.currentTime = 0;
+    audio.play();
+}
+
+// Initialize
+updateProgress();
+</script>
+
+</body>
+</html>
