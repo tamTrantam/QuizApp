@@ -24,15 +24,9 @@
     <div class="cards">
         {% for quiz in quizzes %}
             <div class="quiz-card-interactive" style="background-color: {{ quiz.background_color }};">
-                {% if quiz.cover_image %}
-                    <div class="quiz-image">
-                        <img src="{{ quiz.cover_image.url }}" alt="{{ quiz.title }}" loading="lazy">
-                    </div>
-                {% else %}
-                    <div class="quiz-icon">
-                        <span class="quiz-emoji">📝</span>
-                    </div>
-                {% endif %}
+                <div class="quiz-image">
+                    <img src="{{ quiz.get_cover_image_url }}" alt="{{ quiz.title }}" loading="lazy">
+                </div>
                 
                 <div class="quiz-content">
                     <h3>{{ quiz.title }}</h3>

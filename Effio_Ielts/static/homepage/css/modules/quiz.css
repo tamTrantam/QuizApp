@@ -3,6 +3,42 @@
    Quiz containers, questions, choices, progress
    =========================================== */
 
+/* Quiz Cover Image Handling */
+.quiz-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius-md);
+    transition: var(--transition-normal);
+}
+
+.quiz-image img[src=""], 
+.quiz-image img:not([src]),
+.quiz-image img[src="#"] {
+    display: none;
+}
+
+/* Fallback icon styling when image fails */
+.quiz-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.quiz-emoji {
+    font-size: 4rem;
+    opacity: 0.8;
+}
+
 .quiz-container {
     max-width: 800px;
     margin: 0 auto;

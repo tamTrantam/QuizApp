@@ -14,6 +14,22 @@ class Quiz(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+    
+    def get_cover_image_url(self):
+        """Return cover image URL with fallback for missing files."""
+        if self.cover_image:
+            try:
+                # Check if file exists, return URL if it does
+                self.cover_image.url
+                return self.cover_image.url
+            except:
+                # If file doesn't exist, return default image
+                return '/static/homepage/images/default-quiz-cover.svg'
+        return '/static/homepage/images/default-quiz-cover.svg'
+    
+    def has_valid_cover_image(self):
+        """Check if quiz has a valid, accessible cover image."""
+        return self.cover_image and hasattr(self.cover_image, 'url')
         verbose_name_plural = "Quizzes"
     
     def __str__(self):

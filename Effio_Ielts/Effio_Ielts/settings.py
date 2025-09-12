@@ -156,9 +156,13 @@ STATIC_ROOT = config('STATIC_ROOT', default=os.path.join(BASE_DIR, 'staticfiles'
 # WhiteNoise configuration for serving static files in production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files (uploads)
+# Media files (uploads) - Enhanced configuration for production
 MEDIA_URL = config('MEDIA_URL', default='/media/')
 MEDIA_ROOT = config('MEDIA_ROOT', default=os.path.join(BASE_DIR, 'media'))
+
+# For production: Configure WhiteNoise to serve media files as well
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_AUTOREFRESH = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -173,15 +177,14 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-# AllAuth settings (EMAIL AUTHENTICATION - ENVIRONMENT CONFIGURED)
+# ✅ MODERN ALLAUTH AUTHENTICATION SETTINGS
 ACCOUNT_EMAIL_VERIFICATION = config('ACCOUNT_EMAIL_VERIFICATION', default='none')
 ACCOUNT_LOGOUT_ON_GET = config('ACCOUNT_LOGOUT_ON_GET', default=True, cast=bool)
 ACCOUNT_SESSION_REMEMBER = config('ACCOUNT_SESSION_REMEMBER', default=True, cast=bool)
 
-# ✅ EMAIL AND USERNAME AUTHENTICATION SETTINGS
-ACCOUNT_AUTHENTICATION_METHOD = config('ACCOUNT_AUTHENTICATION_METHOD', default='email')
-ACCOUNT_EMAIL_REQUIRED = config('ACCOUNT_EMAIL_REQUIRED', default=True, cast=bool)
-ACCOUNT_USERNAME_REQUIRED = config('ACCOUNT_USERNAME_REQUIRED', default=False, cast=bool)
+# Modern AllAuth login methods and signup fields (replaces deprecated settings)
+ACCOUNT_LOGIN_METHODS = {'email'}  # Replaces ACCOUNT_AUTHENTICATION_METHOD
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']  # Replaces EMAIL_REQUIRED & USERNAME_REQUIRED
 ACCOUNT_UNIQUE_EMAIL = config('ACCOUNT_UNIQUE_EMAIL', default=True, cast=bool)
 
 LOGIN_URL = '/accounts/login/'
