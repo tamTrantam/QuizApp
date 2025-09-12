@@ -7,10 +7,15 @@
 2. [File Structure](#file-structure)
 
 3. [Changes Made](#changes-made)
+
 4. [CSS Module System](#css-module-system)
+
 5. [Hero Section Guide](#hero-section-guide)
+
 6. [HTML Template Structure](#html-template-structure)
+
 7. [How to Edit and Customize](#how-to-edit-and-customize)
+
 8. [Common Tasks](#common-tasks)
 
 ---
@@ -47,7 +52,7 @@ static/homepage/images/
 
 Homepage/templates/homepage/
 └── home.html                 # Main homepage template
-```
+
 
 ---
 
@@ -56,15 +61,18 @@ Homepage/templates/homepage/
 ### **1. CSS Modularization (Major Change)**
 
 **Before:**
+
 - Single large `MainPage.css` file (hard to maintain)
 - All styles mixed together
 
 **After:**
+
 - 8 separate CSS modules
 - Each module handles specific components
 - Easy to find and edit specific styles
 
 **Why this is better:**
+
 - **Maintainability**: Find styles quickly
 - **Organization**: Related styles grouped together  
 - **Collaboration**: Multiple people can work on different modules
@@ -73,6 +81,7 @@ Homepage/templates/homepage/
 ### **2. Hero Section Enhancement**
 
 **Before:**
+
 ```css
 .hero {
     background: url('placeholder-image') no-repeat center center;
@@ -84,6 +93,7 @@ Homepage/templates/homepage/
 ```
 
 **After:**
+
 ```css
 .hero {
     /* Enhanced with multiple options */
@@ -95,6 +105,7 @@ Homepage/templates/homepage/
 ```
 
 **New Features Added:**
+
 - Multiple hero themes (`.hero-ielts`, `.hero-study`, `.hero-books`, `.hero-local`)
 - Gradient overlays for better text readability
 - Enhanced typography with text shadows
@@ -104,6 +115,7 @@ Homepage/templates/homepage/
 ### **3. Template Structure Improvements**
 
 **Before:**
+
 ```html
 <div class="hero">
     <h2>Title</h2>
@@ -112,6 +124,7 @@ Homepage/templates/homepage/
 ```
 
 **After:**
+
 ```html
 <div class="hero hero-local" style="background-image: ...">
     <div class="hero-content">
@@ -129,6 +142,7 @@ Homepage/templates/homepage/
 ### **How It Works:**
 
 1. **main.css** imports all modules:
+
 ```css
 @import url('modules/variables.css');
 @import url('modules/base.css');
@@ -137,6 +151,7 @@ Homepage/templates/homepage/
 ```
 
 2. **variables.css** defines global values:
+
 ```css
 :root {
     --primary: #4a90e2;        /* Main blue color */
@@ -147,6 +162,7 @@ Homepage/templates/homepage/
 ```
 
 3. **Other modules** use these variables:
+
 ```css
 .card {
     background: var(--card-bg);
@@ -156,6 +172,7 @@ Homepage/templates/homepage/
 ```
 
 ### **Benefits:**
+
 - **Consistency**: Same colors/spacing throughout site
 - **Easy Updates**: Change one variable, updates everywhere
 - **Maintainability**: Find specific styles quickly
@@ -167,6 +184,7 @@ Homepage/templates/homepage/
 ### **Available Hero Types:**
 
 #### **1. Basic Hero (Gradient Background)**
+
 ```html
 <div class="hero">
     <div class="hero-content">
@@ -177,6 +195,7 @@ Homepage/templates/homepage/
 ```
 
 #### **2. IELTS Theme Hero**
+
 ```html
 <div class="hero hero-ielts">
     <div class="hero-content">
@@ -187,6 +206,7 @@ Homepage/templates/homepage/
 ```
 
 #### **3. Study Theme Hero**
+
 ```html
 <div class="hero hero-study">
     <!-- Content here -->
@@ -194,6 +214,7 @@ Homepage/templates/homepage/
 ```
 
 #### **4. Books Theme Hero**
+
 ```html
 <div class="hero hero-books">
     <!-- Content here -->
@@ -201,6 +222,7 @@ Homepage/templates/homepage/
 ```
 
 #### **5. Custom Image Hero (Current Implementation)**
+
 ```html
 <div class="hero hero-local" style="background-image: linear-gradient(rgba(74, 144, 226, 0.7), rgba(255, 111, 97, 0.7)), url('{% static 'homepage/images/hero-bg.jpg' %}');">
     <div class="hero-content">

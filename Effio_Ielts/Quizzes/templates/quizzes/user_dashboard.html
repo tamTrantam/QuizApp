@@ -1,16 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}User Dashboard{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'quizzes/css/dashboard.css' %}">
-{% endblock %}nds 'base.html' %}
-{% load static %}
-
 {% block title %}My Quiz Dashboard{% endblock %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'quizzes/css/dashboard.css' %}">
 <style>
     .dashboard-container {
         max-width: 1200px;
@@ -217,6 +211,10 @@
         .attempt-header {
             flex-direction: column;
             align-items: flex-start;
+        }
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="dashboard-container">
     <!-- Dashboard Header -->
