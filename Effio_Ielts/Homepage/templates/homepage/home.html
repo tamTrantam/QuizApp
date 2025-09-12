@@ -30,9 +30,9 @@
 
 <nav>
     <a href="#courses">Courses</a>
-    <a href="#quiz">Quick Quiz</a>
+    <a href="{% url 'quizzes:user_dashboard' %}">Quiz</a>
     <a href="#practice">Practice Tests</a>
-    <a href="#mock">Mock Exams</a>
+    <a href="#mock">Mock Test</a>
 </nav>
 
 <div class="hero hero-local" style="background-image: linear-gradient(rgba(74, 144, 226, 0.7), rgba(255, 111, 97, 0.7)), url('{% static 'homepage/images/hero-bg.jpg' %}');">
