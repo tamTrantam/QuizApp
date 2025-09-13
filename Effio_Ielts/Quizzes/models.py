@@ -81,7 +81,7 @@ class Quiz(models.Model):
             pass
         
         return False
-        ordering = ['-created_at']
+        
     
     def __str__(self):
         return self.title
